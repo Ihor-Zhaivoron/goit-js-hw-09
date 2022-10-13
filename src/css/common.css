@@ -16,3 +16,47 @@ img {
   display: block;
   max-width: 100%;
 }
+.timer {
+  display: flex;
+  gap: 30px;
+  margin: 10px;
+}
+.field {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.88;
+  letter-spacing: 0.06em;
+}
+.value {
+  font-size: 40px;
+}
+button {
+  cursor: pointer;
+  margin: 0 auto;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.88;
+  letter-spacing: 0.06em;
+  color: #ffffff;
+  background-color: #f32191;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  min-width: 100px;
+  border: none;
+  transition-property: background-color;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+button:hover,
+button:focus {
+  background-color: #188ce8;
+}
+input {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.88;
+}
