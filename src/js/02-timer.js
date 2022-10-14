@@ -30,7 +30,7 @@ const options = {
 
 flatpickr('#datetime-picker', options);
 
-refs.startBtn.addEventListener('click', onTimer);
+refs.startBtn.addEventListener('click', onStart);
 function onStart() {
   refs.startBtn.disabled = true;
   const timerId = setInterval(() => {
