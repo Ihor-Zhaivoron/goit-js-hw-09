@@ -9,28 +9,44 @@ const refs = {
   minutesRef: document.querySelector('[data-minutes]'),
   secondsRef: document.querySelector('[data-seconds]'),
 };
+
 let currentDate;
+
 const options = {
   enableTime: true,
   time_24hr: true,
   defaultDate: new Date(),
   minuteIncrement: 1,
-  onClose(selectedDates) {
-    currentDate = selectedDates[0].getTime();
-    if (selectedDates[0] > new Date()) {
-      //   refs.startBtn.disabled = true;
-      refs.startBtn.removeAttribute('disabled');
-    } else {
-      Notify.failure('Please choose a date in the future');
-      //   refs.startBtn.disabled = true;
-      refs.startBtn.setAttribute('disabled', 'disabled');
-    }
+  onChange(date) {
+    currentDate = new Date(date);
+    onChangeDate();
+  },
+  onClose(date) {
+    currentDate = new Date(date);
+    onCloseCalendar();
   },
 };
 
 flatpickr('#datetime-picker', options);
 
 refs.startBtn.addEventListener('click', onStart);
+
+function onChangeDate() {
+  const dateNow = Date.now();
+  if (currentDate <= dateNow) {
+    refs.startBtn.setAttribute('disabled', 'disabled');
+  } else {
+    refs.startBtn.removeAttribute('disabled');
+  }
+}
+
+function onCloseCalendar() {
+  const dateNow = Date.now();
+  if (currentDate <= dateNow) {
+    Notify.failure('Please choose a date in the future', {});
+  }
+}
+
 function onStart() {
   refs.startBtn.disabled = true;
   const timerId = setInterval(() => {
@@ -40,9 +56,8 @@ function onStart() {
 
 function changeDate(timerId) {
   const dateNow = new Date();
-
   insertData(convertMs(currentDate - dateNow));
-  if (currentDate - dateNow < 0) {
+  if (currentDate - dateNow < 900) {
     clearInterval(timerId);
     Notify.failure('The moment has come');
   }
@@ -74,5 +89,5 @@ function insertData({ days, hours, minutes, seconds }) {
 }
 
 function addLeadingZero(value) {
-  return value.toSring().padStart(2, 0);
+  return value.toString().padStart(2, 0);
 }
