@@ -12,7 +12,7 @@ function onSubmitBtn(e) {
   let delay = Number(delayEl.value);
 
   setTimeout(() => {
-    for (let i = 0; i <= amountEl.value; i++) {
+    for (let i = 1; i <= amountEl.value; i += 1) {
       createPromise(i, delay)
         .then(({ position, delay }) => {
           Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
@@ -38,10 +38,10 @@ function createPromise(position, delay) {
   });
 }
 
-// createPromise(1, 1500)
-//   .then(({ position, delay }) => {
-//     Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
-//   })
-//   .catch(({ position, delay }) => {
-//     Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
-//   });
+createPromise(1, 1500)
+  .then(({ position, delay }) => {
+    Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
+  })
+  .catch(({ position, delay }) => {
+    Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
+  });
