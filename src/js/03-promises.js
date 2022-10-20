@@ -11,18 +11,16 @@ function onClickBtn(e) {
   e.preventDefault();
   let newDelay = Number(delayEl.value);
 
-  setTimeout(() => {
-    for (let i = 0; i <= amountEl.value; i++) {
-      createPromise(i, newDelay)
-        .then(({ position, delay }) => {
-          Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
-        })
-        .catch(({ position, delay }) => {
-          Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
-        });
-      newDelay += Number(stepEl.value);
-    }
-  }, newDelay);
+  for (let i = 1; i <= amountEl.value; i += 1) {
+    createPromise(i, newDelay)
+      .then(({ position, delay }) => {
+        Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
+      })
+      .catch(({ position, delay }) => {
+        Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
+      });
+    newDelay += Number(stepEl.value);
+  }
 }
 
 function createPromise(position, delay) {
